@@ -34,7 +34,8 @@ if (-not $bash) {
 
 if ($env:SIBME_GO_CHECK -eq '1') {
     Write-Host "Git Bash found: $bash"
-    & $bash -c 'test -r /dev/tty && echo "Keyboard input: OK" || echo "Keyboard input: NOT available"'
+    # no quote marks inside: Windows PowerShell 5.1 drops them when it passes text to another program
+    & $bash -c 'if test -r /dev/tty; then echo Keyboard input OK; else echo Keyboard input NOT available; fi'
     return
 }
 
